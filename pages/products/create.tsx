@@ -3,8 +3,9 @@ import { post, postMultipart } from "@/helpers/http";
 import { backendUrl } from "@/helpers/urls";
 
 export default function CreateProduct() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [price, setPrice] = useState<number | null>(null);
+  const [description, setDescription] = useState<string>("");
   const [images, setImages] = useState<string[]>([]);
 
   function onSubmit(e: FormEvent) {
@@ -13,10 +14,16 @@ export default function CreateProduct() {
       title,
       description,
       images,
+      price,
     };
 
-    post(backendUrl("/products"), data).then((res) => {
-      console.log(res);
+    post(backendUrl("products"), data).then((res) => {
+      setTitle("");
+      setPrice(null);
+      setDescription("");
+      setImages([]);
+      // @ts-ignore
+      document.querySelector("input#images").value = null;
     });
   }
 
@@ -53,8 +60,19 @@ export default function CreateProduct() {
           </div>
 
           <div className="form-control">
+            <label className="label">Price</label>
+            <input
+              className="input input-bordered"
+              type="number"
+              value={price || ""}
+              onChange={(e) => setPrice(+e.target.value)}
+            />
+          </div>
+
+          <div className="form-control">
             <label className="label">Images</label>
             <input
+              id="images"
               className="file-input file-input-bordered"
               type="file"
               onChange={uploadImages}
@@ -72,7 +90,7 @@ export default function CreateProduct() {
           </div>
 
           <button className="btn btn-primary btn-block" type="submit">
-            Submit
+            Add Product
           </button>
         </div>
       </form>
