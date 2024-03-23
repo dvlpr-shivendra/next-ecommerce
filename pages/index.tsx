@@ -6,6 +6,14 @@ type GetProductsRes = {
   products: Product[];
 };
 
+function thumbnail(product: Product) {
+  if (!Array.isArray(product.images) || !product.images.length) {
+    return "https://placehold.co/400";
+  }
+
+  return backendUrl(`files/${product.images[0]}`);
+}
+
 export default function Home({ data }: { data: GetProductsRes }) {
   return (
     <div>
@@ -14,11 +22,8 @@ export default function Home({ data }: { data: GetProductsRes }) {
           key={`product-card-${product.id}`}
           className="card w-96 bg-base-100 shadow-xl"
         >
-          <figure>
-            <img
-              src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-              alt="Shoes"
-            />
+          <figure className="h-56">
+            <img className="object-cover" src={thumbnail(product)} alt="Shoes" />
           </figure>
           <div className="card-body">
             <h2 className="card-title">{product.title}</h2>
