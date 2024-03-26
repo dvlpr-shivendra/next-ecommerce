@@ -3,6 +3,8 @@ import { get } from "@/helpers/http";
 import { backendUrl } from "@/helpers/urls";
 import { useRouter } from "next/router";
 import { format } from "@/helpers/currency";
+import Link from "next/link";
+import { useState } from "react";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id;
@@ -23,36 +25,56 @@ export default function ProductDetail({ product }: { product?: Product }) {
     return <div>Could not find product with ID: {router.query.id}</div>;
   }
 
+  const [imageIndex, setImageIndex] = useState(0);
+
+  const prevImage = () =>
+    setImageIndex(
+      imageIndex - 1 < 0 ? product.images.length - 1 : imageIndex - 1
+    );
+  const nextImage = () =>
+    setImageIndex(imageIndex + 1 >= product.images.length ? 0 : imageIndex + 1);
+
   return (
     <div className="mt-14">
-      <h1 className="text-4xl font-bold mb-14">{product.title}</h1>
-      <div className="max-w-max mx-auto grid lg:grid-cols-2 gap-8 justify-items-center">
-        <div className="carousel ">
-          {product.images.map((image, i) => (
-            <div key={`image-${i}`} id={`item${i}`} className="carousel-item ">
-              <img src={backendUrl(`files/${image}`)} className="" />
-            </div>
-          ))}
-        </div>
-        <div className="flex justify-center  py-2 gap-2">
-          {product.images.map((_, i) => (
-            <a
-              key={`image-link-${i}`}
-              href={`#item${i}`}
-              className="btn btn-xs"
+      <div className="flex flex-col justify-center gap-12 md:flex-row">
+        <div>
+          <div className="flex justify-between mt-8">
+            <button
+              onClick={prevImage}
+              className="cursor-pointer"
+              disabled={imageIndex === 0}
             >
-              {i + 1}
-            </a>
-          ))}
+              Prev
+            </button>
+            <button
+              onClick={nextImage}
+              className="cursor-pointer"
+              disabled={imageIndex === product.images.length - 1}
+            >
+              Next
+            </button>
+          </div>
+          <img
+            className="w-96 mx-auto"
+            src={backendUrl(`files/${product.images[imageIndex]}`)}
+            alt={product.title}
+          />
         </div>
-        <div className="p-6">
-          <h2 className="line-clamp-1 card-title mb-4" title={product.title}>
-            {product.title}
-          </h2>
-          <p className="text-xl leading-none text-green-400 mb-4">
+        <div className="md:w-1/2">
+          <h1 className="text-4xl font-bold mb-8">{product.title}</h1>
+          <p className="text-xl leading-none text-green-400 font-bold mb-8">
             {format(product.price)}
           </p>
-          <p className="line-clamp-3 mb-4">{product.description}</p>
+          <p className="mb-4">{product.description}</p>
+
+          <div className="flex">
+            <Link
+              className="btn btn-primary"
+              href={`/checkout?productId=${product.id}`}
+            >
+              Buy Now
+            </Link>
+          </div>
         </div>
       </div>
     </div>
