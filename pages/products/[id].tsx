@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import { format } from "@/helpers/currency";
 import Link from "next/link";
 import { useState } from "react";
+import ArrowLeftCricle from "@/components/icons/arrow-left-circle";
+import ArrowRightCircle from "@/components/icons/arrow-right-circle";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id;
@@ -38,31 +40,36 @@ export default function ProductDetail({ product }: { product?: Product }) {
     <div className="mt-14">
       <div className="flex flex-col justify-center gap-12 md:flex-row">
         <div>
-          <div className="flex justify-between mt-8">
-            <button
-              onClick={prevImage}
-              className="cursor-pointer"
-              disabled={imageIndex === 0}
-            >
-              Prev
-            </button>
-            <button
-              onClick={nextImage}
-              className="cursor-pointer"
-              disabled={imageIndex === product.images.length - 1}
-            >
-              Next
-            </button>
+          <div className="relative">
+            {product.images.length > 1 && (
+              <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between">
+                <button
+                  onClick={prevImage}
+                  className="cursor-pointer bg-gray-200 p-1 rounded-full"
+                  title="Previous image"
+                >
+                  <ArrowLeftCricle />
+                </button>
+                <button
+                  onClick={nextImage}
+                  className="cursor-pointer bg-gray-200 p-1 rounded-full"
+                  disabled={imageIndex === product.images.length - 1}
+                  title="Next image"
+                >
+                  <ArrowRightCircle />
+                </button>
+              </div>
+            )}
+            <img
+              className="h-96 w-96 object-contain mx-auto"
+              src={backendUrl(`files/${product.images[imageIndex]}`)}
+              alt={product.title}
+            />
           </div>
-          <img
-            className="w-96 mx-auto"
-            src={backendUrl(`files/${product.images[imageIndex]}`)}
-            alt={product.title}
-          />
         </div>
         <div className="md:w-1/2">
           <h1 className="text-4xl font-bold mb-8">{product.title}</h1>
-          <p className="text-xl leading-none text-green-400 font-bold mb-8">
+          <p className="text-xl leading-none text-green-600 font-bold mb-8">
             {format(product.price)}
           </p>
           <p className="mb-4">{product.description}</p>
