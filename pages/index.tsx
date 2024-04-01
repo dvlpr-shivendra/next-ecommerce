@@ -26,13 +26,11 @@ export default function Home({ data }: { data: GetProductsRes }) {
             key={`product-card-${product.id}`}
             className="card w-96 bg-base-100 shadow-xl"
           >
-            <figure className="h-72">
-              <img
-                className="object-cover"
-                src={thumbnail(product)}
-                alt="Shoes"
-              />
-            </figure>
+            <img
+              className="h-96 w-96 bg-white object-contain"
+              src={thumbnail(product)}
+              alt="Shoes"
+            />
             <div className="p-6">
               <h2
                 className="line-clamp-1 card-title mb-4"
