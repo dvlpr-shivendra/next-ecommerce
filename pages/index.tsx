@@ -19,29 +19,26 @@ export default function Home({ data }: { data: GetProductsRes }) {
   return (
     <div className="mt-14">
       <h1 className="text-4xl font-bold mb-14">Ecommerce</h1>
-      <div className="max-w-max mx-auto grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-16 justify-items-center">
+      <div className="max-w-max mx-auto grid grid-cols-1 lg:grid-cols-4 gap-16 justify-items-center">
         {data.products.map((product) => (
           <Link
             href={`/products/${product.id}`}
             key={`product-card-${product.id}`}
-            className="card w-96 bg-base-100 shadow-xl"
+            className="card w-64 bg-base-100 shadow-xl"
+            title={"Buy - " + product.title}
           >
             <img
-              className="h-96 w-96 bg-white object-contain"
+              className="mx-auto h-48 w-48 bg-white object-contain"
               src={thumbnail(product)}
               alt="Shoes"
             />
-            <div className="p-6">
-              <h2
-                className="line-clamp-1 card-title mb-4"
-                title={product.title}
-              >
+            <div className="p-6 text-center">
+              <h2 className="line-clamp-1 mb-4" title={product.title}>
                 {product.title}
               </h2>
-              <p className="text-xl leading-none text-green-400 mb-4">
+              <p className="leading-none text-green-500 font-bold mb-4">
                 {format(product.price)}
               </p>
-              <p className="line-clamp-3 mb-4">{product.description}</p>
             </div>
           </Link>
         ))}
