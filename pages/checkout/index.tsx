@@ -1,3 +1,4 @@
+import { format } from "@/helpers/currency";
 import { get, post } from "@/helpers/http";
 import { backendUrl } from "@/helpers/urls";
 import { useRouter } from "next/router";
@@ -19,6 +20,8 @@ function IndexPage() {
     null
   );
 
+  const [product, setProduct] = useState<Product | null>(null);
+
   const router = useRouter();
   const { productId } = router.query;
 
@@ -29,6 +32,16 @@ function IndexPage() {
 
     fetchAndSetAdresses();
   }, []);
+
+  useEffect(() => {
+    if (productId) {
+      get(backendUrl(`products/${productId}`), false).then(
+        (product: Product) => {
+          setProduct(product);
+        }
+      );
+    }
+  }, [productId]);
 
   function fetchAndSetAdresses() {
     get(backendUrl("address")).then((addresses: Address[]) => {
@@ -98,87 +111,113 @@ function IndexPage() {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold">Checkout</h1>
-
-      <div className="mt-20 p-8 card bg-base-100 shadow-xl w-2/5 mx-auto">
-        <h1 className="text-2xl font-bold mb-4">Shipping address</h1>
-
-        <form onSubmit={onSubmit} className="space-y-8">
-          <div className="space-y-8">
-            <div className="form-control">
-              <label className="label">Line 1</label>
-              <input
-                className="input input-bordered"
-                type="text"
-                value={line1}
-                onChange={(e) => setLine1(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="form-control">
-              <label className="label">Line 2</label>
-              <input
-                className="input input-bordered"
-                type="text"
-                value={line2}
-                onChange={(e) => setLine2(e.target.value)}
-              />
-            </div>
-
-            <div className="form-control">
-              <label className="label">Postal code</label>
-              <input
-                className="input input-bordered"
-                type="text"
-                value={postalCode}
-                onChange={(e) => setPostalCode(e.target.value)}
-                required
-                maxLength={6}
-                minLength={6}
-              />
-            </div>
-
-            <div className="form-control">
-              <label className="label">Landmark</label>
-              <input
-                className="input input-bordered"
-                type="text"
-                value={landmark}
-                onChange={(e) => setLandmark(e.target.value)}
-              />
-            </div>
-
-            <button className="btn btn-primary btn-block" type="submit">
-              Save Address
-            </button>
-          </div>
-        </form>
-
-        <div className="my-6">
-          <h2 className="font-bold text-2xl mb-4">Address</h2>
-          <div className="space-y-2">
-            {addresses.map((address) => (
-              <div key={address.id} className="flex items-center">
-                <input
-                  type="radio"
-                  name="address"
-                  value={address.id}
-                  checked={shippingAddressId === address.id}
-                  onChange={() => setShippingAddressId(address.id)}
-                  className="mr-2 h-4 w-4"
-                />
-                <label className="text-sm">
-                  {address.line1}, {address.postalCode}, {address.landmark}
-                </label>
+      <div className="mt-8 grid grid-cols-12 gap-8">
+        <div className="col-span-6">
+          <div className="p-8 card bg-base-100 shadow-xl">
+            <p className="text-2xl font-bold mb-4">Shipping address</p>
+            <div className="my-6">
+              <div className="space-y-2">
+                {addresses.map((address) => (
+                  <div key={address.id} className="flex items-center">
+                    <input
+                      type="radio"
+                      name="address"
+                      value={address.id}
+                      checked={shippingAddressId === address.id}
+                      onChange={() => setShippingAddressId(address.id)}
+                      className="mr-2 h-4 w-4"
+                    />
+                    <label className="text-sm">
+                      {address.line1}, {address.postalCode}, {address.landmark}
+                    </label>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <div className="collapse collapse-arrow bg-base-200">
+              <input type="checkbox" />
+              <div className="collapse-title text-xl font-medium">
+                Add new address
+              </div>
+              <div className="collapse-content">
+                <form onSubmit={onSubmit} className="space-y-8">
+                  <div className="space-y-8">
+                    <div className="form-control">
+                      <label className="label">Line 1</label>
+                      <input
+                        className="input input-bordered"
+                        type="text"
+                        value={line1}
+                        onChange={(e) => setLine1(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="form-control">
+                      <label className="label">Line 2</label>
+                      <input
+                        className="input input-bordered"
+                        type="text"
+                        value={line2}
+                        onChange={(e) => setLine2(e.target.value)}
+                      />
+                    </div>
+                    <div className="form-control">
+                      <label className="label">Postal code</label>
+                      <input
+                        className="input input-bordered"
+                        type="text"
+                        value={postalCode}
+                        onChange={(e) => setPostalCode(e.target.value)}
+                        required
+                        maxLength={6}
+                        minLength={6}
+                      />
+                    </div>
+                    <div className="form-control">
+                      <label className="label">Landmark</label>
+                      <input
+                        className="input input-bordered"
+                        type="text"
+                        value={landmark}
+                        onChange={(e) => setLandmark(e.target.value)}
+                      />
+                    </div>
+                    <button className="btn btn-primary btn-block" type="submit">
+                      Save Address
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
+        {product && (
+          <div className="col-span-6">
+            <div className="grid grid-cols-1 gap-6">
+              <div key={product.id} className="grid grid-cols-2">
+                <img
+                  src={backendUrl(`files/${product.images[0]}`)}
+                  alt={product.title}
+                  className="h-64 col-span-1"
+                />
+                <div className="col-span-1">
+                  <h3 className="text-2xl font-bold">{product.title}</h3>
+                  <p>{format(product.price)}</p>
+                </div>
+              </div>
 
-        <button disabled={!shippingAddressId} className="btn btn-primary btn-block" onClick={initiatePayment}>
-          Proceed to Payment
-        </button>
+              <div className="col-span-1">
+                <button
+                  className="btn btn-primary w-full"
+                  onClick={() => initiatePayment}
+                >
+                  Pay
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
