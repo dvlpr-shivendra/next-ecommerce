@@ -3,6 +3,7 @@ import Navbar from "@/components/navbar";
 ("@/components/navbar");
 import type { AppProps } from "next/app";
 import { AuthProvider } from "@/context/AuthContext";
+import Footer from "@/components/footer";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -13,6 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <div className="container mx-auto flex-1">
             <Component {...pageProps} />
           </div>
+          <Footer />
         </AuthProvider>
       </div>
     </>
