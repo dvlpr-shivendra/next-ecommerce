@@ -112,7 +112,7 @@ function IndexPage() {
   return (
     <div>
       <div className="mt-8 grid grid-cols-12 gap-8">
-        <div className="col-span-6">
+        <div className="col-span-12 lg:col-span-6 order-2 lg:order-1">
           <div className="p-8 card bg-base-100 shadow-xl">
             <p className="text-2xl font-bold mb-4">Shipping address</p>
             <div className="my-6">
@@ -141,8 +141,8 @@ function IndexPage() {
                 Add new address
               </div>
               <div className="collapse-content">
-                <form onSubmit={onSubmit} className="space-y-8">
-                  <div className="space-y-8">
+                <form onSubmit={onSubmit}>
+                  <div className="space-y-3">
                     <div className="form-control">
                       <label className="label">Line 1</label>
                       <input
@@ -183,7 +183,7 @@ function IndexPage() {
                         onChange={(e) => setLandmark(e.target.value)}
                       />
                     </div>
-                    <button className="btn btn-primary btn-block" type="submit">
+                    <button className="btn btn-primary btn-block !mt-8" type="submit">
                       Save Address
                     </button>
                   </div>
@@ -193,27 +193,26 @@ function IndexPage() {
           </div>
         </div>
         {product && (
-          <div className="col-span-6">
+          <div className="col-span-12 lg:col-span-6 order-1 lg:order-2">
             <div className="grid grid-cols-1 gap-6">
-              <div key={product.id} className="grid grid-cols-2">
+              <div key={product.id} className="grid grid-cols-2 gap-8">
                 <img
                   src={backendUrl(`files/${product.images[0]}`)}
                   alt={product.title}
-                  className="h-64 col-span-1"
+                  className="h-64 col-span-2 lg:col-span-1"
                 />
-                <div className="col-span-1">
-                  <h3 className="text-2xl font-bold">{product.title}</h3>
-                  <p>{format(product.price)}</p>
+                <div className="col-span-2 lg:col-span-1">
+                  <h3 className="text-2xl font-bold mb-4">{product.title}</h3>
+                  <p className="text-green-600 font-bold mb-4">
+                    {format(product.price)}
+                  </p>
+                  <button
+                    className="btn btn-primary w-full"
+                    onClick={() => initiatePayment}
+                  >
+                    Pay
+                  </button>
                 </div>
-              </div>
-
-              <div className="col-span-1">
-                <button
-                  className="btn btn-primary w-full"
-                  onClick={() => initiatePayment}
-                >
-                  Pay
-                </button>
               </div>
             </div>
           </div>

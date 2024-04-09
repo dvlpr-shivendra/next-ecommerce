@@ -69,10 +69,12 @@ export default function ProductDetail({ product }: { product?: Product }) {
         </div>
         <div className="md:w-1/2">
           <h1 className="text-4xl font-bold mb-8">{product.title}</h1>
+
           <p className="text-xl leading-none text-green-600 font-bold mb-8">
             {format(product.price)}
           </p>
-          <p className="mb-4">{product.description}</p>
+
+          <p className="mb-8">{product.description}</p>
 
           <div className="flex">
             <Link
