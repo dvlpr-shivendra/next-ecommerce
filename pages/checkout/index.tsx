@@ -64,7 +64,6 @@ function IndexPage() {
       setLandmark("");
       setAddresses((old) => [...old, address]);
       setShippingAddressId(address.id);
-      initiatePayment();
     });
   }
 
@@ -110,13 +109,15 @@ function IndexPage() {
   }
 
   return (
-    <div>
+    product && (
       <div className="mt-8 grid grid-cols-12 gap-8">
         <div className="col-span-12 lg:col-span-6 order-2 lg:order-1">
           <div className="p-8 card bg-base-100 shadow-xl">
-            <p className="text-2xl font-bold mb-4">Shipping address</p>
+            <h3 className="text-2xl font-bold mb-4">{product.title}</h3>
+
             <div className="my-6">
               <div className="space-y-2">
+                <p className="text-xl font-medium mb-4">Shipping address</p>
                 {addresses.map((address) => (
                   <div key={address.id} className="flex items-center">
                     <input
@@ -135,7 +136,7 @@ function IndexPage() {
               </div>
             </div>
 
-            <div className="collapse collapse-arrow bg-base-200">
+            <div className="collapse collapse-arrow bg-base-200 mb-6">
               <input type="checkbox" />
               <div className="collapse-title text-xl font-medium">
                 Add new address
@@ -183,42 +184,34 @@ function IndexPage() {
                         onChange={(e) => setLandmark(e.target.value)}
                       />
                     </div>
-                    <button className="btn btn-primary btn-block !mt-8" type="submit">
+                    <button
+                      className="btn btn-primary btn-block !mt-8"
+                      type="submit"
+                    >
                       Save Address
                     </button>
                   </div>
                 </form>
               </div>
             </div>
-          </div>
-        </div>
-        {product && (
-          <div className="col-span-12 lg:col-span-6 order-1 lg:order-2">
-            <div className="grid grid-cols-1 gap-6">
-              <div key={product.id} className="grid grid-cols-2 gap-8">
-                <img
-                  src={backendUrl(`files/${product.images[0]}`)}
-                  alt={product.title}
-                  className="h-64 col-span-2 lg:col-span-1"
-                />
+
+            <div className="col-span-12 lg:col-span-6 order-1 lg:order-2">
+              <div key={product.id}>
                 <div className="col-span-2 lg:col-span-1">
-                  <h3 className="text-2xl font-bold mb-4">{product.title}</h3>
-                  <p className="text-green-600 font-bold mb-4">
-                    {format(product.price)}
-                  </p>
                   <button
-                    className="btn btn-primary w-full"
-                    onClick={() => initiatePayment}
+                    disabled={!shippingAddressId}
+                    className="btn btn-primary font-bold"
+                    onClick={initiatePayment}
                   >
-                    Pay
+                    Pay {format(product.price)} and place order
                   </button>
                 </div>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
-    </div>
+    )
   );
 }
 
