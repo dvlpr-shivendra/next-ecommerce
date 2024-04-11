@@ -8,7 +8,7 @@ function ProductCard({ product }: { product: Product }) {
     <Link
       href={`/products/${product.id}`}
       key={`product-card-${product.id}`}
-      className="card w-64 bg-base-100 shadow-xl"
+      className="card pt-6 w-64 bg-base-100 shadow-md shadow-violet-300 border border-violet-600"
       title={"Buy - " + product.title}
     >
       <img

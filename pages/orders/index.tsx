@@ -20,7 +20,7 @@ function index() {
         {orders.map((order) => (
           <li key={order.id} className="mb-4">
             <Link href={`/orders/${order.id}`}>
-              <div className="flex items-center justify-between p-4 bg-white border-2 border-gray-200 rounded-lg shadow-md ">
+              <div className="flex items-center justify-between p-4 rounded-lg shadow-md shadow-violet-300 border border-violet-600">
                 <div className="flex items-center">
                   <img
                     className="h-16 w-16 object-cover rounded-lg"
