@@ -1,19 +1,12 @@
 import { format } from "@/helpers/currency";
 import { get } from "@/helpers/http";
+import { thumbnail } from "@/helpers/product";
 import { backendUrl } from "@/helpers/urls";
 import Link from "next/link";
 
 type GetProductsRes = {
   products: Product[];
 };
-
-function thumbnail(product: Product) {
-  if (!Array.isArray(product.images) || !product.images.length) {
-    return "https://placehold.co/400";
-  }
-
-  return backendUrl(`files/${product.images[0]}`);
-}
 
 export default function Home({ data }: { data: GetProductsRes }) {
   return (

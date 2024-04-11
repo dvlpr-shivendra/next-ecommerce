@@ -69,7 +69,7 @@ function IndexPage() {
 
   function initiatePayment() {
     // Make an API request to your server to get the order ID
-    post(backendUrl("order/init"), {
+    post(backendUrl("orders/init"), {
       productId: parseInt(productId as string),
       shippingAddressId: shippingAddressId,
       billingAddressID: shippingAddressId,
@@ -100,7 +100,7 @@ function IndexPage() {
   }
 
   function placeOrder(orderId: number, razorpayPaymentId: string) {
-    post(backendUrl("order/success"), {
+    post(backendUrl("orders/success"), {
       orderId,
       razorpayPaymentId,
     }).then((res) => {
