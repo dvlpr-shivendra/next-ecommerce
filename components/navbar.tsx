@@ -3,17 +3,15 @@ import Link from "next/link";
 import React, { useContext } from "react";
 
 function Navbar() {
-  const { data } = useContext(AuthContext) as AuthContextType;
+  const { data: authData, logout } = useContext(AuthContext) as AuthContextType;
 
   const items = [
     { name: "Home", href: "/" },
     { name: "Orders", href: "/orders" },
-    { name: "Cart", href: "/cart" },
-    { name: "My Account", href: "/my-account" },
   ];
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-violet-500 text-white">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -43,21 +41,34 @@ function Navbar() {
             ))}
           </ul>
         </div>
-        <Link href={"/"} className="btn btn-ghost text-xl">
+        <Link href={"/"} className="btn btn-ghost text-xl font-bold">
           Simple Ecommerce
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           {items.map((item) => (
-            <li key={item.name}>
+            <li key={item.name} className="font-bold">
               <Link href={item.href}>{item.name}</Link>
             </li>
           ))}
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Logout</a>
+        {authData?.user ? (
+          <button className="btn btn-ghost" onClick={logout}>
+            Logout
+          </button>
+        ) : (
+          <>
+            <Link href="auth/register" className="btn btn-ghost">
+              Register
+            </Link>
+            <Link href="auth/login" className="btn btn-ghost">
+              Login
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

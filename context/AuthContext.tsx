@@ -19,11 +19,17 @@ export function AuthProvider({
   function login(data: AuthData) {
     localStorage.setItem("token", data.token as string);
     localStorage.setItem("user", JSON.stringify(data.user));
-    setData(data);    
+    setData(data);
+  }
+
+  function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setData(null);
   }
 
   return (
-    <AuthContext.Provider value={{ data, login }}>
+    <AuthContext.Provider value={{ data, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
