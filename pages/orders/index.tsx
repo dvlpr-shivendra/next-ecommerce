@@ -20,7 +20,7 @@ function index() {
         {orders.map((order) => (
           <li key={order.id} className="mb-6">
             <Link href={`/orders/${order.id}`}>
-              <div className="flex items-center justify-between p-6 border border-accent border-dashed">
+              <div className="flex items-center justify-between p-6 border border-accent border-dashed hover:border-solid hover:shadow-lg hover:scale-[1.01] transition duration-300 ease-out">
                 <div className="flex items-center">
                   <img
                     className="h-16 w-16 object-cover rounded-lg"

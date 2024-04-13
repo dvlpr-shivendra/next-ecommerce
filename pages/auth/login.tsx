@@ -14,14 +14,13 @@ export default function CreateProduct() {
     };
 
     post(backendUrl("auth/login"), data).then((res: AuthData) => {
-
       localStorage.setItem("token", res.token as string);
       localStorage.setItem("user", JSON.stringify(res.user));
     });
   }
 
   return (
-    <div className="mt-20 p-8 card bg-base-100 shadow-xl w-2/5 mx-auto">
+    <div className="mt-20 p-8 border border-accent border-dashed w-2/5 mx-auto hover:border-solid">
       <h1 className="text-2xl font-bold mb-4">Login</h1>
       <form onSubmit={onSubmit} className="space-y-8">
         <div className="space-y-8">
