@@ -14,7 +14,7 @@ export default function Document() {
   const [theme, setTheme] = useState("");
 
   return (
-    <Html lang="en" data-theme={'light'}>
+    <Html lang="en" data-theme={'lofi'}>
       <Head />
       <body>
         <Main />

@@ -8,7 +8,7 @@ function ProductCard({ product }: { product: Product }) {
     <Link
       href={`/products/${product.id}`}
       key={`product-card-${product.id}`}
-      className="card pt-6 w-64 bg-base-100 shadow-md shadow-violet-300 border border-violet-600"
+      className="pt-6 w-full border border-accent border-dashed"
       title={"Buy - " + product.title}
     >
       <img
@@ -20,7 +20,7 @@ function ProductCard({ product }: { product: Product }) {
         <h2 className="line-clamp-1 mb-4" title={product.title}>
           {product.title}
         </h2>
-        <p className="leading-none text-green-500 font-bold mb-4">
+        <p className="leading-none text-accent font-bold mb-4">
           {format(product.price)}
         </p>
       </div>

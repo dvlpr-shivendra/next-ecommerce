@@ -40,7 +40,7 @@ export default function ProductDetail({ product }: { product?: Product }) {
     <div className="mt-14">
       <div className="flex flex-col justify-center gap-12 md:flex-row">
         <div>
-          <div className="relative">
+          <div className="relative mb-8 p-6 border border-accent border-dashed">
             {product.images.length > 1 && (
               <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between">
                 <button
@@ -66,24 +66,21 @@ export default function ProductDetail({ product }: { product?: Product }) {
               alt={product.title}
             />
           </div>
+          <Link
+            className="btn btn-primary btn-block"
+            href={`/checkout?productId=${product.id}`}
+          >
+            Buy Now
+          </Link>
         </div>
         <div className="md:w-1/2">
           <h1 className="text-4xl font-bold mb-8">{product.title}</h1>
 
-          <p className="text-xl leading-none text-green-600 font-bold mb-8">
+          <p className="text-xl leading-none text-accent font-bold mb-8">
             {format(product.price)}
           </p>
 
           <p className="mb-8">{product.description}</p>
-
-          <div className="flex">
-            <Link
-              className="btn btn-primary"
-              href={`/checkout?productId=${product.id}`}
-            >
-              Buy Now
-            </Link>
-          </div>
         </div>
       </div>
     </div>

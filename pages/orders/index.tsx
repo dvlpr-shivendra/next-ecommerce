@@ -18,9 +18,9 @@ function index() {
       <h1 className="text-4xl font-bold mb-14">Orders</h1>
       <ul>
         {orders.map((order) => (
-          <li key={order.id} className="mb-4">
+          <li key={order.id} className="mb-6">
             <Link href={`/orders/${order.id}`}>
-              <div className="flex items-center justify-between p-4 rounded-lg shadow-md shadow-violet-300 border border-violet-600">
+              <div className="flex items-center justify-between p-6 border border-accent border-dashed">
                 <div className="flex items-center">
                   <img
                     className="h-16 w-16 object-cover rounded-lg"
@@ -28,7 +28,7 @@ function index() {
                     alt={order.product.title}
                   />
                   <div className="ml-4">
-                    <div className="text-lg font-semibold leading-5">
+                    <div className="text-lg font-semibold leading-5 mb-1">
                       {order.product.title}
                     </div>
                     <div className="text-gray-600 capitalize">
