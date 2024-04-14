@@ -42,21 +42,21 @@ export default function ProductDetail({ product }: { product?: Product }) {
         <div>
           <div className="relative mb-8 p-6 border border-accent border-dashed">
             {product.images.length > 1 && (
-              <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between">
+              <div className="absolute left-[30px] top-1/2 -translate-y-1/2 w-[calc(100%-60px)] flex justify-between">
                 <button
                   onClick={prevImage}
-                  className="cursor-pointer bg-gray-200 p-1 rounded-full"
+                  className="cursor-pointer bg-white w-6 border border-accent border-dashed rounded-full font-bold"
                   title="Previous image"
                 >
-                  <ArrowLeftCricle />
+                  «
                 </button>
                 <button
                   onClick={nextImage}
-                  className="cursor-pointer bg-gray-200 p-1 rounded-full"
+                  className="cursor-pointer bg-white w-6 border border-accent border-dashed rounded-full font-bold"
                   disabled={imageIndex === product.images.length - 1}
                   title="Next image"
                 >
-                  <ArrowRightCircle />
+                  »
                 </button>
               </div>
             )}

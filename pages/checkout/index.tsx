@@ -40,6 +40,10 @@ function IndexPage() {
           setProduct(product);
         }
       );
+    } else {
+      if (!localStorage.token) {
+        router.push("/auth/login");
+      }
     }
   }, [productId]);
 
@@ -103,8 +107,8 @@ function IndexPage() {
     post(backendUrl("orders/success"), {
       orderId,
       razorpayPaymentId,
-    }).then((res) => {
-      console.log(res);
+    }).then(({ order }: { order: Order }) => {
+      router.push(`/orders?id=${order.id}`);
     });
   }
 

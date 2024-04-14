@@ -42,7 +42,7 @@ function Navbar() {
           </ul>
         </div>
         <Link href={"/"} className="btn btn-ghost text-xl font-bold">
-          Simple Ecommerce
+          SimpleBuy
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">

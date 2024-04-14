@@ -33,7 +33,7 @@ export default function CreateProduct() {
 
   return (
     <div className="mt-20 p-8 border border-accent border-dashed w-2/5 mx-auto hover:border-solid">
-      <h1 className="text-2xl font-bold mb-4">Login</h1>
+      <h1 className="text-2xl font-bold mb-4">Register</h1>
       <form onSubmit={onSubmit} className="space-y-8">
         <div className="space-y-8">
           <div className="form-control">
