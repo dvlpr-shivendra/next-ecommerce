@@ -8,7 +8,7 @@ import Footer from "@/components/footer";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <div className="min-h-screen flex flex-col items-stretch">
+      <div className="min-h-screen flex flex-col items-stretch gap-12">
         <AuthProvider>
           <Navbar />
           <div className="container mx-auto flex-1">

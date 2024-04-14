@@ -37,7 +37,7 @@ export default function ProductDetail({ product }: { product?: Product }) {
     setImageIndex(imageIndex + 1 >= product.images.length ? 0 : imageIndex + 1);
 
   return (
-    <div className="mt-14">
+    <div>
       <div className="flex flex-col justify-center gap-12 md:flex-row">
         <div>
           <div className="relative mb-8 p-6 border border-accent border-dashed">

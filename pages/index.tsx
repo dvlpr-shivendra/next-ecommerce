@@ -8,8 +8,8 @@ type GetProductsRes = {
 
 export default function Home({ data }: { data: GetProductsRes }) {
   return (
-    <div className="mt-14">
-      <div className="mt-8 mb-12 p-8 border border-accent border-dashed hover:border-solid">
+    <div>
+      <div className="mb-12 p-8 border border-accent border-dashed hover:border-solid">
         <h1 className="text-3xl font-bold leading-none text-gray-900 mb-4">
           SimplyBuy
         </h1>
