@@ -61,10 +61,10 @@ function Navbar() {
           </button>
         ) : (
           <>
-            <Link href="auth/register" className="btn btn-ghost">
+            <Link href="/auth/register" className="btn btn-ghost">
               Register
             </Link>
-            <Link href="auth/login" className="btn btn-ghost">
+            <Link href="/auth/login" className="btn btn-ghost">
               Login
             </Link>
           </>

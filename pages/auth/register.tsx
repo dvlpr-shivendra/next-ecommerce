@@ -1,7 +1,8 @@
-import React, { FormEvent, useLayoutEffect, useState } from "react";
+import React, { FormEvent, useContext, useLayoutEffect, useState } from "react";
 import { post } from "@/helpers/http";
 import { backendUrl } from "@/helpers/urls";
 import { useRouter } from "next/navigation";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function CreateProduct() {
   const [payload, setPayload] = useState({
@@ -13,12 +14,13 @@ export default function CreateProduct() {
 
   const router = useRouter();
 
+  const { login } = useContext(AuthContext) as AuthContextType;
+
   function onSubmit(e: FormEvent) {
     e.preventDefault();
 
-    post(backendUrl("auth/signup"), payload).then((res: AuthData) => {
-      localStorage.setItem("token", res.token as string);
-      localStorage.setItem("user", JSON.stringify(res.user));
+    post(backendUrl("auth/signup"), payload).then((data: AuthData) => {
+      login(data);
       router.push("/");
     });
   }

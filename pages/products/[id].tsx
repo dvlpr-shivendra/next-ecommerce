@@ -62,7 +62,11 @@ export default function ProductDetail({ product }: { product?: Product }) {
             )}
             <img
               className="h-96 w-96 object-contain mx-auto"
-              src={backendUrl(`files/${product.images[imageIndex]}`)}
+              src={
+                product.images[imageIndex].startsWith("http")
+                  ? product.images[imageIndex]
+                  : backendUrl(`files/${product.images[imageIndex]}`)
+              }
               alt={product.title}
             />
           </div>

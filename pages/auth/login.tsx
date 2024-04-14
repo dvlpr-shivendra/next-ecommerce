@@ -1,23 +1,24 @@
-import React, { FormEvent, useLayoutEffect, useState } from "react";
+import React, { FormEvent, useContext, useLayoutEffect, useState } from "react";
 import { post } from "@/helpers/http";
 import { backendUrl } from "@/helpers/urls";
 import { useRouter } from "next/navigation";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function CreateProduct() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [payload, setPayload] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { login } = useContext(AuthContext) as AuthContextType;
+
   const router = useRouter();
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
-    const data = {
-      email,
-      password,
-    };
 
-    post(backendUrl("auth/login"), data).then((res: AuthData) => {
-      localStorage.setItem("token", res.token as string);
-      localStorage.setItem("user", JSON.stringify(res.user));
+    post(backendUrl("auth/login"), payload).then((data: AuthData) => {
+      login(data);
       router.push("/");
     });
   }
@@ -37,9 +38,12 @@ export default function CreateProduct() {
             <label className="label">Email</label>
             <input
               className="input input-bordered"
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              value={payload.email}
+              onChange={(e) =>
+                setPayload({ ...payload, email: e.target.value })
+              }
+              required
             />
           </div>
 
@@ -48,8 +52,11 @@ export default function CreateProduct() {
             <input
               className="input input-bordered"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={payload.password}
+              onChange={(e) =>
+                setPayload({ ...payload, password: e.target.value })
+              }
+              required
             />
           </div>
 

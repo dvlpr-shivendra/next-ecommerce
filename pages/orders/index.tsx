@@ -16,6 +16,11 @@ function index() {
   return (
     <div>
       <h1 className="text-4xl font-bold mb-14">Orders</h1>
+
+      {orders.length === 0 && (
+        <p className="text-lg mt-10">You have no orders yet.</p>
+      )}
+
       <ul>
         {orders.map((order) => (
           <li key={order.id} className="mb-6">
