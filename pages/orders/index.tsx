@@ -1,11 +1,10 @@
 import { get } from "@/helpers/http";
 import { thumbnail } from "@/helpers/product";
 import { backendUrl } from "@/helpers/urls";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-function index() {
+function Index() {
   const [orders, setOrders] = useState<Order[]>([]);
 
   const router = useRouter();
@@ -81,4 +80,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

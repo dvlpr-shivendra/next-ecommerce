@@ -19,6 +19,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default function ProductDetail({ product }: { product?: Product }) {
+  const [imageIndex, setImageIndex] = useState(0);
+
   const router = useRouter();
 
   if (router.isFallback) return <div>Loading...</div>;
@@ -26,8 +28,6 @@ export default function ProductDetail({ product }: { product?: Product }) {
   if (!product) {
     return <div>Could not find product with ID: {router.query.id}</div>;
   }
-
-  const [imageIndex, setImageIndex] = useState(0);
 
   const prevImage = () =>
     setImageIndex(

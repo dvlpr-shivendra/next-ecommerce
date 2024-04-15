@@ -14,7 +14,7 @@ function ProductCard({ product }: { product: Product }) {
       <img
         className="mx-auto h-48 w-48 bg-white object-contain"
         src={thumbnail(product)}
-        alt="Shoes"
+        alt={product.title}
       />
       <div className="p-6 text-center">
         <h2 className="line-clamp-1 mb-4" title={product.title}>

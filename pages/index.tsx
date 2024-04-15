@@ -28,21 +28,22 @@ export default function Home({ data }: { data: GetProductsRes }) {
         ))}
       </div>
 
-      <div className="join mt-6">
-        <Link href={`/?page=1`} className="join-item btn">
-          First
-        </Link>
-        <Link href={`/?page=${data.page - 1}`} className="join-item btn">
-          «
-        </Link>
-        <Link href={`/?page=${data.page}`} className="join-item btn">
-          {data.page}
-        </Link>
-        <Link href={`/?page=${data.page + 1}`} className="join-item btn">
-          »
-        </Link>
-        <Link href={`/?page=${pageCount}`} className="join-item btn">
-          Last
+      <div className="mt-6 space-x-1">
+        {data.page > 1 && (
+          <Link
+            href={`/?page=${data.page - 1}`}
+            className="btn"
+            title="Previous page"
+          >
+            Prev
+          </Link>
+        )}
+        <Link
+          href={`/?page=${data.page + 1}`}
+          className="btn"
+          title="Next page"
+        >
+          Next
         </Link>
       </div>
       <p className="mt-2 text-sm">
