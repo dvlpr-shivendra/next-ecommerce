@@ -6,7 +6,7 @@ This project is developed for exploration and learning purpose and not meant to 
 ** Homepage **  
 ![Homepage](screenshots/home.png)  
 
-** Homepage **  
+** Product page **  
 ![Product details](screenshots/product-details.png)  
 
 
