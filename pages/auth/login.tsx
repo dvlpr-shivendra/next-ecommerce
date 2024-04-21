@@ -1,7 +1,7 @@
-import React, { FormEvent, useContext, useLayoutEffect, useState } from "react";
+import React, { FormEvent, useContext, useEffect, useState } from "react";
 import { post } from "@/helpers/http";
 import { backendUrl } from "@/helpers/urls";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { AuthContext } from "@/context/AuthContext";
 
 export default function CreateProduct() {
@@ -13,17 +13,18 @@ export default function CreateProduct() {
   const { login } = useContext(AuthContext) as AuthContextType;
 
   const router = useRouter();
+  const params = useSearchParams()
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
 
     post(backendUrl("auth/login"), payload).then((data: AuthData) => {
       login(data);
-      router.push("/");
+      router.push(params.get("from") || "/");
     });
   }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (localStorage.token) {
       router.push("/");
     }

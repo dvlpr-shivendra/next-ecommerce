@@ -1,12 +1,21 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { post, postMultipart } from "@/helpers/http";
 import { backendUrl } from "@/helpers/urls";
+import { useRouter } from "next/router";
 
 export default function CreateProduct() {
   const [title, setTitle] = useState<string>("");
   const [price, setPrice] = useState<number | null>(null);
   const [description, setDescription] = useState<string>("");
   const [images, setImages] = useState<string[]>([]);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!localStorage.token) {
+      router.push("/auth/login");
+    }
+  }, []);
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();

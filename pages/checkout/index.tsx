@@ -26,6 +26,11 @@ function IndexPage() {
   const { productId } = router.query;
 
   useEffect(() => {
+    if (!localStorage.token) {
+      router.push("/auth/login?from=" + window.location.toString())
+      return;
+    }
+
     const script = document.createElement("script");
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
     document.body.appendChild(script);
