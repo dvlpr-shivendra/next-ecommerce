@@ -3,10 +3,10 @@ This project is developed for exploration and learning purpose and not meant to 
 
 ### Screenshots
 
-** Homepage **  
+**Homepage**  
 ![Homepage](screenshots/home.png)  
 
-** Product page **  
+**Product page**  
 ![Product details](screenshots/product-details.png)  
 
 
