@@ -15,7 +15,7 @@ export default function Home({ data }: { data: GetProductsRes }) {
 
   return (
     <div>
-      <div className="mb-12 p-8 border border-accent border-dashed hover:border-solid">
+      <div className="mb-12 p-4 border border-accent border-dashed lg:p-8 hover:border-solid">
         <h1 className="text-3xl font-bold leading-none text-gray-900 mb-4">
           SimplyBuy
         </h1>
@@ -38,13 +38,15 @@ export default function Home({ data }: { data: GetProductsRes }) {
             Prev
           </Link>
         )}
-        <Link
-          href={`/?page=${data.page + 1}`}
-          className="btn"
-          title="Next page"
-        >
-          Next
-        </Link>
+        {data.page < pageCount && (
+          <Link
+            href={`/?page=${data.page + 1}`}
+            className="btn"
+            title="Next page"
+          >
+            Next
+          </Link>
+        )}
       </div>
       <p className="mt-2 text-sm">
         Showing page {data.page} of {pageCount}

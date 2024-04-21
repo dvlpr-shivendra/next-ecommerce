@@ -121,7 +121,7 @@ function IndexPage() {
     product && (
       <div className="grid grid-cols-12 gap-8">
         <div className="col-span-12 lg:col-span-6 order-2 lg:order-1">
-          <div className="p-8 border border-accent border-dashed">
+          <div className="p-4 border border-accent border-dashed lg:p-8">
             <h3 className="text-2xl font-bold mb-4">{product.title}</h3>
 
             <div className="my-6">
