@@ -84,7 +84,7 @@ export default function ProductDetail({ product }: { product?: Product }) {
             {format(product.price)}
           </p>
 
-          <p className="mb-8">{product.description}</p>
+          <p className="mb-8 whitespace-pre-wrap">{product.description}</p>
         </div>
       </div>
     </div>
