@@ -6,17 +6,23 @@ function Footer() {
       <aside>
         <p>
           <a
+            className="underline"
             rel="nofollow"
             target="_blank"
             href="https://gitlab.com/shivendratechster/go-ecommerce"
           >
             Backend
-          </a>
-          of this project is built with Go and
-          <a rel="nofollow" target="_blank" href="#">
+          </a>{" "}
+          of this project is built with Go and{" "}
+          <a
+            className="underline"
+            rel="nofollow"
+            target="_blank"
+            href="https://gitlab.com/shivendratechster/next-ecommerce"
+          >
             Frontend
-          </a>
-          Next by
+          </a>{" "}
+          with Next by{" "}
           <a
             target="_blank"
             className="underline"
